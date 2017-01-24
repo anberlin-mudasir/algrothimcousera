@@ -1,0 +1,8 @@
+.settings/
+lib/
+bin/
+input/
+.classpath
+.project
+*.sublime*
+*.zip
