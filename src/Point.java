@@ -96,7 +96,7 @@ public class Point implements Comparable<Point> {
         /* YOUR CODE HERE */
         return new SlopeOrder();
     }
-    
+
     private class SlopeOrder implements Comparator<Point> {
         public int compare(Point p1, Point p2) {
             double slopeDiff = slopeTo(p1) - slopeTo(p2);
