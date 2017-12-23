@@ -1,30 +1,33 @@
-JFLAGS = -g -Xlint:unchecked
+JFLAGS = -g
 JC = javac
 JRUN = java
 LIB = lib/algs4.jar
 CLASSES = \
-	src/WordNet.java \
-	src/SAP.java \
-	src/Outcast.java \
+	src/seam/SeamCarver.java \
+	src/seam/PrintSeams.java \
+	src/seam/ShowEnergy.java \
+	src/seam/ShowSeams.java \
+	src/seam/ResizeDemo.java \
 
 .SUFFIXES: .java .class
 .java.class:
-	$(JC) $(JFLAGS) -d bin -cp $(LIB):src $*.java
+	$(JC) $(JFLAGS) -d bin -cp $(LIB):src/seam $*.java
 
 default: classes
 
 classes: $(CLASSES:.java=.class)
 
 run: classes
-	$(JRUN) -cp bin:$(LIB) Outcast input/wordnet/synsets.txt input/wordnet/hypernyms.txt input/wordnet/outcast5.txt input/wordnet/outcast8.txt input/wordnet/outcast11.txt
-	$(JRUN) -cp bin:$(LIB) SAP
-	$(JRUN) -cp bin:$(LIB) WordNet
+	# $(JRUN) -cp bin:$(LIB) SeamCarver
+	# $(JRUN) -cp bin:$(LIB) ShowEnergy input/seam/chameleon.png
+	$(JRUN) -cp bin:$(LIB) PrintSeams input/seam/1x8.png
+	# $(JRUN) -cp bin:$(LIB) ShowSeams input/seam/chameleon.png
+	# $(JRUN) -cp bin:$(LIB) ResizeDemo input/seam/chameleon.png 200 100
+	# $(JRUN) -cp bin:$(LIB) ResizeDemo input/seam/HJocean.png 200 100
 
 zip:
-	cp src/WordNet.java ./
-	cp src/SAP.java ./
-	cp src/Outcast.java ./
-	zip -r wordnet.zip *.java
+	cp src/seam/SeamCarver.java ./
+	zip -r seam.zip *.java
 	$(RM) *.java
 
 clean:
