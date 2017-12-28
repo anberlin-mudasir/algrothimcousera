@@ -3,31 +3,22 @@ JC = javac
 JRUN = java
 LIB = lib/algs4.jar
 CLASSES = \
-	src/seam/SeamCarver.java \
-	src/seam/PrintSeams.java \
-	src/seam/ShowEnergy.java \
-	src/seam/ShowSeams.java \
-	src/seam/ResizeDemo.java \
+	src/baseball/BaseballElimination.java
 
 .SUFFIXES: .java .class
 .java.class:
-	$(JC) $(JFLAGS) -d bin -cp $(LIB):src/seam $*.java
+	$(JC) $(JFLAGS) -d bin -cp $(LIB):src/baseball $*.java
 
 default: classes
 
 classes: $(CLASSES:.java=.class)
 
 run: classes
-	# $(JRUN) -cp bin:$(LIB) SeamCarver
-	# $(JRUN) -cp bin:$(LIB) ShowEnergy input/seam/chameleon.png
-	$(JRUN) -cp bin:$(LIB) PrintSeams input/seam/1x8.png
-	# $(JRUN) -cp bin:$(LIB) ShowSeams input/seam/chameleon.png
-	# $(JRUN) -cp bin:$(LIB) ResizeDemo input/seam/chameleon.png 200 100
-	# $(JRUN) -cp bin:$(LIB) ResizeDemo input/seam/HJocean.png 200 100
+	$(JRUN) -cp bin:$(LIB) BaseballElimination input/baseball/teams4.txt
 
 zip:
-	cp src/seam/SeamCarver.java ./
-	zip -r seam.zip *.java
+	cp src/baseball/BaseballElimination.java ./
+	zip -r baseball.zip *.java
 	$(RM) *.java
 
 clean:

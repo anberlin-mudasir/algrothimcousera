@@ -30,8 +30,8 @@ public class ASeries {
 		}
 		return maxLen;
 	}
-	
-	private static int[] justUniques(int[] arr) { 
+
+	private static int[] justUniques(int[] arr) {
 	    if (arr == null || arr.length == 0) return arr;
 	    Arrays.sort(arr);
 	    int n = 1;
@@ -46,7 +46,7 @@ public class ASeries {
 	    }
 	    return res;
 	}
-	
+
 	private static int findLongestSame(int []inputs) {
 		if (inputs.length == 0) {
 			return 0;
@@ -68,7 +68,7 @@ public class ASeries {
 		}
 		return maxLen;
 	}
-	
+
 	private static boolean []hashIntArray(int []inputs) {
 		int maxNum = inputs[inputs.length - 1];
 		int minNum = inputs[0];
@@ -79,13 +79,13 @@ public class ASeries {
 		}
 		return hashResult;
 	}
-	
+
 	public static void testHashIntArray() {
 		System.out.println(Arrays.toString(hashIntArray(new int[]{1,2,4})));  // [true, true, false, true]
 		System.out.println(Arrays.toString(hashIntArray(new int[]{-1,2,4}))); // [true, false, false, true, false, true]
 		System.out.println(Arrays.toString(hashIntArray(new int[]{1,1,3})));  // [true, false, true]
 	}
-	
+
 	public static boolean testFindLongestSame() {
 		assert findLongestSame(new int[]{}) == 0 : "Empty array should return 0";
 		assert findLongestSame(new int[]{2}) == 1;
@@ -94,14 +94,14 @@ public class ASeries {
 		System.out.println("Test findLongestSame successful!");
 		return true;
 	}
-	
+
 	public static void testLongest() {
 		System.out.println(longest(new int[]{1,2,3,4,1}));  // 4
 		System.out.println(longest(new int[]{1,1,2,-1,1})); // 3
 		System.out.println(longest(new int[]{-1,-5,1,3}));  // 3
 		System.out.println(longest(new int[]{3,8,4,5,6,2,2}));  // 5
 	}
-	
+
 	public static void main(String []args) {
 		// testHashIntArray();
 		// testFindLongestSame();
