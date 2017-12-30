@@ -15,17 +15,17 @@ public class KdTree {
         public KdNode right;
         public Point2D point;
         public int size;
-        
+
         public KdNode(Point2D p, int dim) {
             point = p;
             dimension = dim;
             size = 1;
         }
-        
+
         public int nextDim() {
             return (dimension + 1) % 2;
         }
-        
+
         public int compare(Point2D p) {
             if (dimension == 0) {
                 if (this.point.x() < p.x()) return -1;
@@ -38,22 +38,22 @@ public class KdTree {
             }
         }
     }
-    
+
     public boolean isEmpty() {
         // is the set empty?
         return size() == 0;
     }
-    
+
     public int size() {
         // number of points in the set
         return size(root);
     }
-    
+
     private int size(KdNode x) {
         if (x == null) return 0;
         return x.size;
     }
-    
+
     public void insert(Point2D p) {
         // add the point to the set (if it is not already in the set)
         root = insert(root, null, p);
@@ -62,13 +62,13 @@ public class KdTree {
         if (parent == null && x == null) return new KdNode(p, 0);
         if (x == null) return new KdNode(p, parent.nextDim());
         int cmp = x.compare(p);
-        
+
         if (cmp < 0) x.right = insert(x.right, x, p);
         else if (cmp > 0) x.left = insert(x.left, x, p);
         x.size = 1 + size(x.left) + size(x.right);
         return x;
     }
-    
+
     public boolean contains(Point2D p) {
         // does the set contain point p?
         return get(root, p) != null;
@@ -80,7 +80,7 @@ public class KdTree {
         else if (cmp > 0) return get(x.left, p);
         else return x;
     }
-    
+
     private Iterable<Point2D> iter() {
         LinkedList<Point2D> list = new LinkedList<>();
         inorder(root, list);
@@ -102,10 +102,10 @@ public class KdTree {
         queue.add(root);
         while (!queue.isEmpty()) {
             KdNode parent = queue.removeFirst();
-            
+
         }*/
     }
-    
+
     public Iterable<Point2D> range(RectHV rect) {
         // all points that are inside the rectangle
         LinkedList<Point2D> list = new LinkedList<>();

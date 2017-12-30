@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public class ConnectedComponentConstruction {
-	
+
 	public static class ArrayIndexComparator implements Comparator<Integer>
 	{
 	    private final int[] array;
@@ -38,7 +38,7 @@ public class ConnectedComponentConstruction {
 	    	return -1;
 	    }
 	}
-	
+
 	public static String []construct(int []x) {
 		ArrayIndexComparator comparator = new ArrayIndexComparator(x);
 		Integer[] indexes = comparator.createIndexArray();
@@ -72,7 +72,7 @@ public class ConnectedComponentConstruction {
 		}
 		return temp.toArray(new String[temp.size()]);
 	}
-	
+
 	public static void main(String[] args) {
 		String [] temp = construct(new int []{4,4,4,4,4});
 		System.out.println(Arrays.deepToString(temp));

@@ -12,13 +12,13 @@ import java.util.NoSuchElementException;
  * Algorithm lecture</a> by Robert Sedgewick and Kevin Wayne)
  * and this is a collection of notes and part of the core code
  * when I am attending this lecture.
- * 
+ *
  * @author chaonan99
  */
 
 public class BSTree<Key extends Comparable<Key>, Value> {
     private Node root;
-    
+
     private class Node {
         private Key key;
         private Value value;
@@ -30,13 +30,13 @@ public class BSTree<Key extends Comparable<Key>, Value> {
             this.count = 1;
         }
     }
-    
+
     /**
      * Initializes an empty symbol table.
      */
     public BSTree() {
     }
-    
+
     /**
      * Associate value with key. Override previous value if the
      * key already exists.
@@ -47,7 +47,7 @@ public class BSTree<Key extends Comparable<Key>, Value> {
     public void put(Key key, Value value) {
         root = put(root, key, value);
     }
-    
+
     private Node put(Node x, Key key, Value val) {
         if (x == null) return new Node(key, val);
         int cmp = key.compareTo(x.key);
@@ -57,7 +57,7 @@ public class BSTree<Key extends Comparable<Key>, Value> {
         x.count = 1 + size(x.left) + size(x.right);
         return x;
     }
-    
+
     /**
      * Find the largest key not greater than a given key.<br>
      * <br>Method: given key <tt>k</tt>
@@ -81,18 +81,18 @@ public class BSTree<Key extends Comparable<Key>, Value> {
         if (xNode == null) return null;
         return xNode.key;
     }
-    
+
     private Node floor(Node x, Key key) {
         if (x == null) return null;
         int cmp = key.compareTo(x.key);
         if (cmp == 0) return x;
         else if (cmp < 0) return floor(x.left, key);
-        
+
         Node tNode = floor(x.right, key);
         if (tNode == null) return x;
         else return tNode;
     }
-    
+
     /**
      * Find the smallest key not smaller than a given key. Method
      * is similar to {@link BSTree#floor(Key key)}.
@@ -106,18 +106,18 @@ public class BSTree<Key extends Comparable<Key>, Value> {
         if (xNode == null) return null;
         return xNode.key;
     }
-    
+
     private Node ceil(Node x, Key key) {
         if (x == null) return null;
         int cmp = key.compareTo(x.key);
         if (cmp == 0) return x;
         else if (cmp > 0) return ceil(x.right, key);
-        
+
         Node tNode = ceil(x.left, key);
         if (tNode == null) return x;
         else return tNode;
     }
-    
+
     /**
      * Get the number of keys that are smaller than the given
      * key.
@@ -129,7 +129,7 @@ public class BSTree<Key extends Comparable<Key>, Value> {
     public int rank(Key key) {
         return rank(root, key);
     }
-    
+
     private int rank(Node x, Key key) {
         if (x == null) return 0;
         int cmp = key.compareTo(x.key);
@@ -137,7 +137,7 @@ public class BSTree<Key extends Comparable<Key>, Value> {
         else if (cmp > 0) return 1 + size(x.left) + rank(x.right, key);
         else return size(x.left);
     }
-    
+
     /**
      * Get the value corresponding to given key, or null if no such
      * key.
@@ -156,10 +156,10 @@ public class BSTree<Key extends Comparable<Key>, Value> {
         }
         return null;
     }
-    
+
     /**
      * Check if the tree contains the given key.
-     * 
+     *
      * @return {@code true} if the tree contains {@code key},
      * {@code false} otherwise.
      */
@@ -168,7 +168,7 @@ public class BSTree<Key extends Comparable<Key>, Value> {
                 "argument to contains() is null");
         return get(key) != null;
     }
-    
+
     /**
      * Get the size of the whole tree, yields keys in ascending
      * order.
@@ -178,29 +178,29 @@ public class BSTree<Key extends Comparable<Key>, Value> {
     public int size() {
         return size(root);
     }
-    
+
     private int size(Node x) {
         if (x == null) return 0;
         return x.count;
     }
-    
+
     public boolean isEmpty() {
         return size() == 0;
     }
-    
+
     public void deleteMin() {
         if (isEmpty()) throw new NoSuchElementException(
                 "Symbol table underflow");
         root = deleteMin(root);
     }
-    
+
     private Node deleteMin(Node x) {
         if (x.left == null) return x.right;
         x.left = deleteMin(x.left);
         x.count = 1 + size(x.left) + size(x.right);
         return x;
     }
-    
+
     /**
      * Returns the smallest key in the tree.
      *
@@ -212,12 +212,12 @@ public class BSTree<Key extends Comparable<Key>, Value> {
                 "called min() with empty symbol table");
         return min(root).key;
     }
-    
+
     private Node min(Node x) {
         if (x.left == null) return x;
         return min(x.left);
     }
-    
+
     /**
      * Implement Hibbard deletion for BST.<br><br>
      * Method:
@@ -239,13 +239,13 @@ public class BSTree<Key extends Comparable<Key>, Value> {
      * <img src="http://algs4.cs.princeton.edu/32bst/images/bst-delete.png"
      * alt="Hibbard deletion with two children" style="float:middle">
      * </center>
-     * 
+     *
      * @param key the key to delete.
      */
     public void delete(Key key) {
         root = delete(root, key);
     }
-    
+
     private Node delete(Node x, Key key) {
         if (x == null) return null;
         int cmp = key.compareTo(x.key);
@@ -254,7 +254,7 @@ public class BSTree<Key extends Comparable<Key>, Value> {
         else {
             if (x.right == null) return x.left;
             if (x.left == null) return x.right;
-            
+
             // Pretty tricky.
             Node tNode = x;
             x = min(tNode.right);
@@ -264,7 +264,7 @@ public class BSTree<Key extends Comparable<Key>, Value> {
         x.count = size(x.left) + size(x.right) + 1;
         return x;
     }
-    
+
     /**
      * Inorder traversal of the whole tree.<br><br>
      * Method:
@@ -273,7 +273,7 @@ public class BSTree<Key extends Comparable<Key>, Value> {
      * <li>Enqueue key.</li>
      * <li>Traverse right subtree.</li>
      * </ul>
-     * 
+     *
      * @return Iterator for traverse.
      */
     public Iterable<Key> keys() {
@@ -281,20 +281,20 @@ public class BSTree<Key extends Comparable<Key>, Value> {
         inorder(root, list);
         return list;
     }
-    
+
     private void inorder(Node x, LinkedList<Key> qKeys) {
         if (x == null) return;
         inorder(x.left, qKeys);
         qKeys.add(x.key);
         inorder(x.right, qKeys);
     }
-    
+
     /**
      * Level order traversal of the whole tree.<br><br>
-     * Method: 
+     * Method:
      * Maintain two queues. First enqueue root node, then each time
      * dequeue a node and enqueue its two child if not null.
-     * 
+     *
      * @return Iterator for traverse.
      */
     public Iterable<Key> levelOrder() {
@@ -303,7 +303,7 @@ public class BSTree<Key extends Comparable<Key>, Value> {
         listNode.add(root);
         listKey.add(root.key);
         while (!listNode.isEmpty()) {
-            
+
             Node x = listNode.removeFirst();
             if (x.left != null) {
                 listNode.add(x.left);
@@ -316,7 +316,7 @@ public class BSTree<Key extends Comparable<Key>, Value> {
         }
         return listKey;
     }
-    
+
     public static void main(String[] args) {
         // Unit test
         BSTree<String, Integer> bsTree = new BSTree<>();
@@ -329,7 +329,7 @@ public class BSTree<Key extends Comparable<Key>, Value> {
         System.out.println(bsTree.rank("H") == 2);
         System.out.println(bsTree.get("H") == null);
         System.out.println(bsTree.get("G") == 2);
-        
+
         System.out.println(bsTree.size() == 3);
         for (String s : bsTree.keys()) {
             System.out.print(s);
@@ -339,7 +339,7 @@ public class BSTree<Key extends Comparable<Key>, Value> {
             System.out.print(s);
         }
         System.out.println("");
-            
+
         bsTree.deleteMin();
         bsTree.delete("G");
         System.out.println(bsTree.contains("C") == false);

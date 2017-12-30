@@ -46,7 +46,7 @@ public class Solver {
         }
         mPq = null;
         mPq2 = null;
-        
+
         if (isSolvable()) {
             stackSolution = new Stack<>();
             for (SearchNode i = goalNode; i != null; i = i.preNode)

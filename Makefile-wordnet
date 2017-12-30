@@ -3,13 +3,13 @@ JC = javac
 JRUN = java
 LIB = lib/algs4.jar
 CLASSES = \
-	src/WordNet.java \
-	src/SAP.java \
-	src/Outcast.java \
+	src/wordnet/WordNet.java \
+	src/wordnet/SAP.java \
+	src/wordnet/Outcast.java \
 
 .SUFFIXES: .java .class
 .java.class:
-	$(JC) $(JFLAGS) -d bin -cp $(LIB):src $*.java
+	$(JC) $(JFLAGS) -d bin -cp $(LIB):src/wordnet $*.java
 
 default: classes
 
@@ -21,9 +21,9 @@ run: classes
 	$(JRUN) -cp bin:$(LIB) WordNet
 
 zip:
-	cp src/WordNet.java ./
-	cp src/SAP.java ./
-	cp src/Outcast.java ./
+	cp src/wordnet/WordNet.java ./
+	cp src/wordnet/SAP.java ./
+	cp src/wordnet/Outcast.java ./
 	zip -r wordnet.zip *.java
 	$(RM) *.java
 
