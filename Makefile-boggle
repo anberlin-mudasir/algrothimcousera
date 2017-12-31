@@ -1,0 +1,27 @@
+JFLAGS = -g -Xlint:unchecked
+JC = javac
+JRUN = java
+LIB = lib/algs4.jar
+CLASSES = \
+	src/boggle/BoggleSolver.java \
+	# input/boggle/BoggleGame.java \
+
+.SUFFIXES: .java .class
+.java.class:
+	$(JC) $(JFLAGS) -d bin -cp $(LIB):src/boggle:input/boggle $*.java
+
+default: classes
+
+classes: $(CLASSES:.java=.class)
+
+run: classes
+	$(JRUN) -cp bin:$(LIB) BoggleSolver input/boggle/dictionary-2letters.txt input/boggle/board-points4410.txt
+	# $(JRUN) -cp bin:$(LIB) BoggleGame
+
+zip:
+	cp src/boggle/BoggleSolver.java ./
+	zip -r boggle.zip *.java
+	$(RM) *.java
+
+clean:
+	$(RM) bin/*.class
